@@ -1,0 +1,118 @@
+<html>
+<head>
+ <style>
+    body {
+            text-align: center;
+            font-family: sans-serif;
+            font-weight: 100;
+            background-image: url(https://image.shutterstock.com/z/stock-vector-computer-hacker-spread-a-net-isolated-vector-illustration-252866212.jpg);
+             
+         }
+        h1 {
+             color: #396;
+             font-weight: 100;
+             font-size: 40px;
+             margin: 40px 0px 20px;
+           }
+       #clockdiv 
+           {
+             font-family: sans-serif;
+             color: #300;
+             display: inline-block;
+             font-weight: 100;
+             text-align: center;
+             font-size: 30px;
+          }
+        #clockdiv > div 
+          {
+             padding: 10px;
+             border-radius: 3px;
+             background: #00BF96;
+             display: inline-block;
+           }
+        #clockdiv div > span {
+             padding: 15px;
+             border-radius: 3px;
+             background: #00816A;
+             display: inline-block;
+             }
+        .smalltext {
+             padding-top: 5px;
+             font-size: 20px;
+             
+             }
+             </style>
+             <title>CONTEST COUNTDOWN</title>
+            </head>
+            <body>
+             <p>Your progress will be checked every hour.</p>
+             <p>Time is rushing up..... </p>
+             <h4> Reports</h4>
+               <h1>Countdown Clock</h1>
+             <div id="clockdiv">
+             <div>
+               <span class="days"></span>
+             <div class="smalltext">Days</div>
+             </div>
+             <div>
+               <span class="hours"></span>
+             <div class="smalltext">Hours</div>
+             </div>
+             <div>
+               <span class="minutes"></span>
+             <div class="smalltext">Minutes</div>
+             </div>
+             <div>
+               <span class="seconds"></span>
+             <div class="smalltext">Seconds</div>
+             </div>
+             </div>
+             <script>
+             const time =1000 * 60 * 60 * 26;
+             //const stime = 1000 * 10;
+             let timeGap = time;
+             let deadline = Date.now() + timeGap;
+             function getTimeRemaining(endtime) 
+             {
+             var t = endtime - Date.now();
+             var seconds = Math.floor((t / 1000) % 60);
+             var minutes = Math.floor((t / 1000 / 60) % 60);
+             var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+             var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            return {
+             'days': days,
+             'hours': hours,
+             'minutes': minutes,
+             'seconds': seconds
+             };
+             }
+             function initializeClock(id, endtime) {
+                     var clock = document.getElementById(id);
+                     var daysSpan = clock.querySelector('.days');
+                     var hoursSpan = clock.querySelector('.hours');
+                     var minutesSpan = clock.querySelector('.minutes');
+                     var secondsSpan = clock.querySelector('.seconds');
+                 function updateClock() {
+                 var t = getTimeRemaining(endtime);
+                 daysSpan.innerHTML = ('0' + t.days).slice(-2);
+                 hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+                 minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                 secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+                 if (t.total <= 0) {
+                 clearInterval(timeinterval);
+                 }
+             }
+               updateClock();
+                var timeinterval = setInterval(updateClock, 1000);
+             }
+                   initializeClock('clockdiv', deadline);
+                var reportReadyTimer = setInterval(function reportReady() {
+             
+                 alert('Your 2-hour report is being exported to Excel. Enjoy!');
+             
+                  deadline = Date.now() + timeGap;
+                  initializeClock('clockdiv', deadline);
+                }, timeGap);
+             </script>
+</body>
+</html>
